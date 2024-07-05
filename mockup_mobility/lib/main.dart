@@ -37,19 +37,22 @@ class WMSMap extends StatelessWidget {
           ),
           TileLayer(
             wmsOptions: WMSTileLayerOptions(
-              baseUrl:
-                  'https://ide.aytosalamanca.es/geoserver/ide_salamanca_life/wms',
-              layers: const ['zonaslife_rdp_v4_sep21_25830'],
+              baseUrl: //https://ide.aytosalamanca.es/geoserver/ide_salamanca_life/wms?request=GetCapabilities&service=WMS
+                  'https://ide.aytosalamanca.es/geoserver/ide_salamanca_life/wms?SERVICE=WMS&',
+              //  'http://www.ign.es/wms-inspire/pnoa-ma?SERVICE=WMS&',
+              //layers: const ['zonaslife_rdp_v4_sep21_25830'],
+              layers: const ['2_SUPOCUPADA_200_CUANT_30P_NULOSA0.25830'],
+              //layers: const ['OI.OrthoimageCoverage'],
               format: 'image/png',
               transparent: true,
               //version: '1.3.0',
-              otherParameters: const {
-                'service': 'WMS',
-                'request': 'GetMap',
-                'styles': 'ide_salamanca_life:zonaslife',
-                'crs': 'EPSG:25830', // Replace with the correct CRS if needed
-                //'crs': 'EPSG:3857',
-              },
+              // otherParameters: const {
+              //   'service': 'WMS',
+              //   'request': 'GetMap',
+              //   'styles': 'ide_salamanca_life:zonaslife',
+              //   'crs': 'EPSG:25830', // Replace with the correct CRS if needed
+              //'crs': 'EPSG:3857',
+              //},
             ),
           ),
         ],
