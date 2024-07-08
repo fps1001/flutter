@@ -42,7 +42,7 @@ dev_dependencies:
 
 flutter:
   assets:
-    - config/.env
+    - config/wms_url.env
   uses-material-design: true
 
 # For information on the generic Dart part of this file, see the

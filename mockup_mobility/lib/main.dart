@@ -6,7 +6,8 @@ import 'blocs/wms/wms_bloc.dart';
 import 'services/wms_service.dart';
 
 Future<void> main() async {
-  await dotenv.load(fileName: "config/.env");
+  // Carga las variables de entorno desde el archivo .env
+  await dotenv.load(fileName: "config/wms_url.env");
   final wmsService = WMSService(dotenv.env['WMS_URL']!);
 
   runApp(MultiBlocProvider(
