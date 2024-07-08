@@ -1,21 +1,26 @@
-import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
 
 class WMSService {
-  final String filePath;
+  final String url;
 
-  WMSService(this.filePath);
+  WMSService(this.url);
 
   Future<List<String>> getLayers() async {
-    final file = File(filePath);
-    final document = XmlDocument.parse(await file.readAsString());
+    final response = await http.get(Uri.parse(url));
 
-    final layers = document.findAllElements('Layer');
+    if (response.statusCode == 200) {
+      final document = XmlDocument.parse(response.body);
 
-    final layerValues = layers.map((layer) {
-      return layer.getElement('Title')?.value ?? 'Sin título';
-    }).toList();
+      final layers = document.findAllElements('Layer');
 
-    return layerValues;
+      final layerValues = layers.map((layer) {
+        return layer.getElement('Title')?.text ?? 'Sin título';
+      }).toList();
+
+      return layerValues;
+    } else {
+      throw Exception('Error al obtener las capacidades WMS');
+    }
   }
 }

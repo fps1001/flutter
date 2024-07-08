@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'screens/wms_map.dart';
 import 'blocs/wms/wms_bloc.dart';
 import 'services/wms_service.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: "config/.env");
+  final wmsService = WMSService(dotenv.env['WMS_URL']!);
+
   runApp(MultiBlocProvider(
     providers: [
-      BlocProvider(create: (context) => WMSBloc()),
+      BlocProvider(create: (context) => WMSBloc(wmsService)),
     ],
     child: const MockupMobilityApp(),
   ));
@@ -18,11 +22,10 @@ class MockupMobilityApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final wmsService = WMSService('path/to/your/wms_capabilities.xml');
-
     return const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Prueba Importación WMS a OSM',
-        home: const WMSMap());
+      debugShowCheckedModeBanner: false,
+      title: 'Prueba Importación WMS a OSM',
+      home: WMSMap(),
+    );
   }
 }
