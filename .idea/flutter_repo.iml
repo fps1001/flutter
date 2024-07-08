@@ -6,6 +6,9 @@
       <excludeFolder url="file://$MODULE_DIR$/yes_no_app/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/yes_no_app/build" />
       <excludeFolder url="file://$MODULE_DIR$/yes_no_app/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/mockup_mobility/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/mockup_mobility/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/mockup_mobility/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
