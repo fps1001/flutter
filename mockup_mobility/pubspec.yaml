@@ -28,10 +28,12 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  bloc: ^8.1.4
   cupertino_icons: ^1.0.6
-  dio: ^5.5.0+1
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.6
   flutter_map: ^7.0.2
   latlong2: ^0.9.1
   xml: ^6.5.0
