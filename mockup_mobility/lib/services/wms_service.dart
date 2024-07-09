@@ -20,8 +20,9 @@ class WMSService {
 
       // Mapea cada elemento 'Layer' para obtener el texto del elemento 'Title'
       final layerValues = layers.map((layer) {
-        return layer.getElement('Title')?.value ?? 'Sin título';
+        return layer.getElement('Title')?.innerText ?? 'Sin título';
       }).toList();
+
 
       // Devuelve la lista de títulos de capas
       return layerValues;
