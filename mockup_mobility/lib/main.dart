@@ -6,7 +6,6 @@ import 'blocs/wms/wms_bloc.dart';
 import 'services/wms_service.dart';
 
 Future<void> main() async {
-  // Carga las variables de entorno desde el archivo .env
   await dotenv.load(fileName: "config/wms_url.env");
   final wmsService = WMSService(dotenv.env['WMS_URL']!);
 
@@ -24,9 +23,8 @@ class MockupMobilityApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Prueba Importación WMS a OSM',
-      home: WMSMap(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Prototipo MovilidApp',
+        home: WMSMap());
   }
 }

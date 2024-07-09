@@ -13,11 +13,12 @@ class LayersLoading extends WMSState {}
 
 class LayersLoaded extends WMSState {
   final List<String> layers;
+  final String? selectedLayer;
 
-  const LayersLoaded(this.layers);
+  const LayersLoaded(this.layers, this.selectedLayer);
 
   @override
-  List<Object> get props => [layers];
+  List<Object> get props => [layers, selectedLayer ?? ''];  // Convertir null a una cadena vacía
 }
 
 class LayersError extends WMSState {
@@ -27,13 +28,4 @@ class LayersError extends WMSState {
 
   @override
   List<Object> get props => [message];
-}
-
-class LayerSelected extends WMSState {
-  final String selectedLayer;
-
-  const LayerSelected(this.selectedLayer);
-
-  @override
-  List<Object> get props => [selectedLayer];
 }
