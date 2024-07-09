@@ -25,10 +25,11 @@ class WMSMap extends StatelessWidget {
           } else if (state is LayersLoaded) {
             return const Center(child: Text('Seleccione una capa del menú'));
           } else if (state is LayerSelected) {
+            print("Selected layer: ${state.selectedLayer}");
             return FlutterMap(
               options: const MapOptions(
                 initialCenter: LatLng(40.95821, -5.67413),
-                initialZoom: 17.0,
+                initialZoom: 14.0,
               ),
               children: [
                 TileLayer(
@@ -36,7 +37,7 @@ class WMSMap extends StatelessWidget {
                 ),
                 TileLayer(
                   wmsOptions: WMSTileLayerOptions(
-                    baseUrl: 'https://ide.aytosalamanca.es/geoserver/ide_salamanca_life/wms?',
+                    baseUrl: 'https://ide.aytosalamanca.es/geoserver/ide_salamanca_life/wms?SERVICE=WMS&',
                     layers: [state.selectedLayer],
                     format: 'image/png',
                     transparent: true,
@@ -44,7 +45,7 @@ class WMSMap extends StatelessWidget {
                 ),
               ],
             );
-          } else if (state is LayersError) {
+          }else if (state is LayersError) {
             return Center(child: Text(state.message));
           } else {
             return const Center(child: Text('Unknown state'));
