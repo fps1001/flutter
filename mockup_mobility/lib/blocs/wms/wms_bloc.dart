@@ -11,16 +11,16 @@ class WMSBloc extends Bloc<WMSEvent, WMSState> {
       emit(LayersLoading());
       try {
         final layers = await wmsService.getLayers();
-        emit(LayersLoaded(layers, null)); // Inicialmente, ninguna capa seleccionada
+        // Inicializamos selectedLayer como null al cargar las capas
+        emit(LayersLoaded(layers, null));
       } catch (e) {
         emit(LayersError(e.toString()));
       }
     });
 
     on<SelectLayer>((event, emit) {
-      final currentState = state;
-      if (currentState is LayersLoaded) {
-        emit(LayersLoaded(currentState.layers, event.selectedLayer));
+      if (state is LayersLoaded) {
+        emit(LayersLoaded((state as LayersLoaded).layers, event.selectedLayer));
       }
     });
   }

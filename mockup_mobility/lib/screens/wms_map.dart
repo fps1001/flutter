@@ -13,9 +13,9 @@ class WMSMap extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Prueba Importación WMS a OSM'),
+        title: const Text('Prototipo MovilidApp'),
       ),
-      drawer: WMSDrawer(),
+      drawer: const WMSDrawer(),
       body: BlocBuilder<WMSBloc, WMSState>(
         builder: (context, state) {
           if (state is LayersInitial) {
@@ -27,6 +27,11 @@ class WMSMap extends StatelessWidget {
             if (state.selectedLayer == null) {
               return const Center(child: Text('Selecciona una capa del menú.'));
             } else {
+              final selectedLayerName = state.layers[state.selectedLayer];
+              if (selectedLayerName == null) {
+                return const Center(child: Text('La capa seleccionada no tiene un nombre válido.'));
+              }
+
               return FlutterMap(
                 options: const MapOptions(
                   initialCenter: LatLng(40.95821, -5.67413),
@@ -39,7 +44,7 @@ class WMSMap extends StatelessWidget {
                   TileLayer(
                     wmsOptions: WMSTileLayerOptions(
                       baseUrl: 'https://ide.aytosalamanca.es/geoserver/ide_salamanca_life/wms?SERVICE=WMS&',
-                      layers: [state.selectedLayer!], // Asegurarse de que no es nulo
+                      layers: [selectedLayerName],
                       format: 'image/png',
                       transparent: true,
                     ),

@@ -1,33 +1,28 @@
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
+import 'dart:convert';
 
 class WMSService {
   final String url;
 
   WMSService(this.url);
 
-  Future<List<String>> getLayers() async {
-    // Realiza una solicitud HTTP GET a la URL proporcionada
+  Future<Map<String, String>> getLayers() async {
     final response = await http.get(Uri.parse(url));
 
-    // Verifica si la respuesta es exitosa (código de estado 200)
     if (response.statusCode == 200) {
-      // Analiza la respuesta XML
-      final document = XmlDocument.parse(response.body);
+      final document = XmlDocument.parse(utf8.decode(response.bodyBytes));
 
-      // Encuentra todos los elementos 'Layer' en el documento XML
       final layers = document.findAllElements('Layer');
 
-      // Mapea cada elemento 'Layer' para obtener el texto del elemento 'Title'
-      final layerValues = layers.map((layer) {
-        return layer.getElement('Name')?.innerText ?? 'Sin título';
-      }).toList();
+      final layerValues = {
+        for (var layer in layers)
+          if (layer.getElement('Title')?.innerText != null && layer.getElement('Name')?.innerText != null)
+            layer.getElement('Title')!.innerText: layer.getElement('Name')!.innerText
+      };
 
-
-      // Devuelve la lista de títulos de capas
       return layerValues;
     } else {
-      // Lanza una excepción si la solicitud HTTP no fue exitosa
       throw Exception('Error al obtener las capacidades WMS');
     }
   }
